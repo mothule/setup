@@ -1,2 +1,2 @@
-# setup-mac
-It's a environment construct scripts on Mac.
+# setup
+It's a environment construct scripts.
