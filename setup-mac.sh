@@ -12,45 +12,42 @@ if no_installed xcode-select ; then
   exit 1
 fi
 
+info 'Configure alias of bash.'
 append_bash_profile 'alias ls="ls -G"'
 append_bash_profile 'alias ll="ls -lG"'
 append_bash_profile 'alias la="ls -laG"'
 reload_bash_profile
 
 # Install Homebrew if not installed yet.
+info 'Homebrew check.'
 if no_installed brew ; then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   info 'Installed Homebrew'
   brew update
-  info 'Updated Homebrew'
+  notice 'Updated Homebrew'
   brew upgrade
-  info 'Upgraded all formulas'
-
-  append_bash_profile "# Homebrew"
-  append_bash_profile "export PATH=/usr/local/bin:$PATH"
-  reload_bash_profile
+  notice 'Upgraded all formulas'
 else
-  info 'Homebrew already installed.'
+  notice 'Homebrew already installed.'
 fi
-
+append_bash_profile "# Homebrew"
+append_bash_profile "export PATH=/usr/local/bin:$PATH"
+reload_bash_profile
 
 # Install formulas
 info 'Homebrew formulas install.'
 
 # pyenv
-if brew_install pyenv ; then
-  append_bash_profile '# pyenv'
-  append_bash_profile 'eval "$(pyenv init -)"'
-  reload_bash_profile
-fi
-
+brew_install pyenv
+append_bash_profile '# pyenv'
+append_bash_profile 'eval "$(pyenv init -)"'
+reload_bash_profile
 
 # rbenv
-if brew_install rbenv ; then
-  append_bash_profile '# rbenv'
-  append_bash_profile 'eval "$(rbenv init -)"'
-  reload_bash_profile
-fi
+brew_install rbenv
+append_bash_profile '# rbenv'
+append_bash_profile 'eval "$(rbenv init -)"'
+reload_bash_profile
 
 # Node Version Manager
 if [[ ! -e '/usr/local/opt/nvm/nvm.sh' ]]; then
@@ -58,36 +55,35 @@ if [[ ! -e '/usr/local/opt/nvm/nvm.sh' ]]; then
   if [[ ! -e ~/.nvm ]]; then
     mkdir ~/.nvm
   fi
-  append_bash_profile 'export NVM_DIR="$HOME/.nvm"'
-  append_bash_profile '[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm'
-  append_bash_profile '[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion'
-  reload_bash_profile
   info 'nvm installed.'
 else
-  info 'nvm already installed.'
+  notice 'nvm already installed.'
 fi
-
+append_bash_profile '# nvm configure'
+append_bash_profile 'export NVM_DIR="$HOME/.nvm"'
+append_bash_profile '[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm'
+append_bash_profile '[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion'
+reload_bash_profile
 
 # Mac App Store command-line interface
 brew_install mas
-if brew_install awscli ; then
-  append_bash_profile "# AWS CLI completer"
-  append_bash_profile "# https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/cli-configure-completion.html"
-  append_bash_profile "complete -C aws_completer aws"
-  reload_bash_profile
-fi
-brew_install 'vim'
+brew_install awscli
+append_bash_profile "# AWS CLI completer"
+append_bash_profile "# https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/cli-configure-completion.html"
+append_bash_profile "complete -C aws_completer aws"
+reload_bash_profile
+
+brew_install vim
 brew_install carthage
 brew_install curl
 brew_install ffmpeg
 brew_install git
 brew_install git-flow
 brew_install glib
-if brew_install gnu-getopt ; then
-  append_bash_profile "use gnu-getopt instead of /usr/bin/getopt"
-  append_bash_profile 'export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"'
-  reload_bash_profile
-fi
+brew_install gnu-getopt
+append_bash_profile "# use gnu-getopt instead of /usr/bin/getopt"
+append_bash_profile 'export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"'
+reload_bash_profile
 brew_install gnu-sed
 brew_install httpie
 brew_install imagemagick
@@ -115,12 +111,11 @@ brew_install tig
 # brew_install rails-completion
 
 brew_cask_install docker
-if brew_cask_install google-cloud-sdk ; then
-  append_bash_profile "source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc"
-  append_bash_profile "source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc"
-  reload_bash_profile
-fi
-brew_cask_install java8
+brew_cask_install google-cloud-sdk
+append_bash_profile "source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc"
+append_bash_profile "source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc"
+reload_bash_profile
+# brew_cask_install java8
 brew_cask_install google-chrome
 brew_cask_install atom
 brew_cask_install google-japanese-ime
@@ -150,7 +145,7 @@ defaults write com.apple.ImageCapture disableHotPlug -bool NO
 defaults write -g InitialKeyRepeat -int 15
 
 # KeyRepeat中のディレイ
-defaults write -g InitialKeyRepeat -int 2
+defaults write -g KeyRepeat -int 2
 
 info 'Install from Apple store using mas.'
 # Evernote

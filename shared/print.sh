@@ -20,6 +20,10 @@ function log() {
   echo "${COLOR_START}$1m$2${COLOR_END}"
 }
 
+function notice() {
+  echo "$1"
+}
+
 function info() {
   if [[ ! $# -eq 1 ]]; then
     echo "${FUNCNAME[0]}: wrong number of arguments ($# for 1)"
