@@ -15,14 +15,14 @@ function reload_bash_profile() {
 }
 
 function contains_bash_profile() {
-  if [[ -n "`cat ~/.bash_profile | grep $1`" ]] ; then
+  if [[ -n "`cat ~/.bash_profile | grep '$1'`" ]] ; then
     return 0
   fi
   return 1
 }
 
 function no_contains_hash_profile() {
-  if [[ ! -n "`cat ~/.bash_profile | grep \"$1\"`" ]] ; then
+  if [[ ! -n "`cat ~/.bash_profile | grep '$1'`" ]] ; then
     return 0
   fi
   return 1

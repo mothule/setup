@@ -12,6 +12,11 @@ if no_installed xcode-select ; then
   exit 1
 fi
 
+if [[ ! -e ~/.bash_profile ]] ; then
+  touch ~/.bash_profile
+  notice 'created .bash_profile'
+fi
+
 info 'Configure alias of bash.'
 append_bash_profile 'alias ls="ls -G"'
 append_bash_profile 'alias ll="ls -lG"'
