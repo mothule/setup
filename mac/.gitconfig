@@ -1,0 +1,46 @@
+[user]
+	name = Unknown
+	email = hogehoge@hogehoge.com
+[core]
+	editor = vim
+	autocrlf = false
+[color]
+	ui = true
+        status = auto
+        branch = auto
+        interactive = auto
+        grep = auto
+        diff = auto
+[merge]
+	tool = p4merge
+        keepBackup = false;
+[mergetool "p4merge"]
+	cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+        keepTemporaries = false
+        trustExitCode = false
+        keepBackup = false
+[diff]
+#        external = p4diff
+	tool = vimdiff
+
+[difftool]
+	prompt = false
+
+[difftool "p4merge"]
+	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$LOCAL\" \"$REMOTE\"
+	trustExitCode = false
+
+[mergetool "p4merge"]
+	path = /Applications/p4merge.app/Contents/MacOS/p4merge
+	keepTemporaries = false
+	trustExitCode = false
+[push]
+	default = simple
+
+[alias]
+	tr = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
+        st = status
+        ci = commit
+        co = checkout
+        br = branch
+	diffp = difftool -t p4merge
