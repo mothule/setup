@@ -130,6 +130,7 @@ brew_cask_install google-japanese-ime
 brew_cask_install iterm2
 brew_cask_install virtualbox
 brew_cask_install vagrant
+brew_cask_install rubymine
 info 'Homebrew installation Completed.'
 
 info 'Configure defaults.'
