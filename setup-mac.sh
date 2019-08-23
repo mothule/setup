@@ -17,6 +17,7 @@ append_bash_profile 'alias ls="ls -G"'
 append_bash_profile 'alias ll="ls -lG"'
 append_bash_profile 'alias la="ls -laG"'
 reload_bash_profile
+info 'Configured.'
 
 # Install Homebrew if not installed yet.
 info 'Homebrew check.'
@@ -33,6 +34,7 @@ fi
 append_bash_profile "# Homebrew"
 append_bash_profile "export PATH=/usr/local/bin:$PATH"
 reload_bash_profile
+
 
 # Install formulas
 info 'Homebrew formulas install.'
@@ -59,6 +61,7 @@ if [[ ! -e '/usr/local/opt/nvm/nvm.sh' ]]; then
 else
   notice 'nvm already installed.'
 fi
+notice 'Configure nvm to .bash_profile.'
 append_bash_profile '# nvm configure'
 append_bash_profile 'export NVM_DIR="$HOME/.nvm"'
 append_bash_profile '[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm'
